@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import javax.annotation.PostConstruct;
 
-import org.katharsis.persistence.dao.RoleRepository;
+//import org.katharsis.persistence.dao.RoleRepository;
 import org.katharsis.persistence.dao.UserRepository;
 import org.katharsis.persistence.model.Role;
 import org.katharsis.persistence.model.User;

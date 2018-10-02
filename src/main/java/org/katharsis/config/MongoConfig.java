@@ -1,25 +1,28 @@
 package org.katharsis.config;
 
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
-
-import java.io.IOException;
 
 
 @Configuration
-public class MongoConfig {
-    private static final String MONGO_DB_URL = "localhost";
-    private static final String MONGO_DB_NAME = "embeded_db";
+public class MongoConfig extends AbstractMongoConfiguration {
 
-    @Bean
-    public MongoTemplate mongoTemplate() throws IOException {
-        EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
-        mongo.setBindIp(MONGO_DB_URL);
-        MongoClient mongoClient = mongo.getObject();
-        MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, MONGO_DB_NAME);
-        return mongoTemplate;
+    @Override
+    protected String getDatabaseName() {
+        return "test";
+    }
+
+    @Override
+    public MongoClient mongoClient() {
+        return new MongoClient("127.0.0.1", 27017);
+    }
+
+    @Override
+    protected String getMappingBasePackage() {
+        return "org.baeldung";
     }
 }
