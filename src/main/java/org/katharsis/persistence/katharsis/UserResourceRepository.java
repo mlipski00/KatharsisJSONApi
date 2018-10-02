@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserResourceRepository implements ResourceRepositoryV2<User, Long> {
+public class UserResourceRepository implements ResourceRepositoryV2<User, String> {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public User findOne(Long id, QuerySpec querySpec) {
-        return userRepository.getOne(id);
+    public User findOne(String id, QuerySpec querySpec) {
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserResourceRepository implements ResourceRepositoryV2<User, Long> 
     }
 
     @Override
-    public ResourceList<User> findAll(Iterable<Long> ids, QuerySpec querySpec) {
+    public ResourceList<User> findAll(Iterable<String> ids, QuerySpec querySpec) {
         return querySpec.apply(userRepository.findAllById(ids));
     }
 
@@ -36,8 +36,8 @@ public class UserResourceRepository implements ResourceRepositoryV2<User, Long> 
     }
 
     @Override
-    public void delete(Long id) {
-        userRepository.delete(userRepository.getOne(id));
+    public void delete(String id) {
+        userRepository.delete(userRepository.findById(id).get());
     }
 
     @Override

@@ -6,23 +6,20 @@ import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.resource.annotations.SerializeType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Entity
+@Document
 @JsonApiResource(type = "users")
 public class User {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonApiId
-    private Long id;
+    private String id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     @JsonApiRelation(serialize = SerializeType.EAGER)
     private Set<Role> roles;
 
@@ -65,12 +62,12 @@ public class User {
     private String field14;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -3,23 +3,20 @@ package org.katharsis.persistence.model;
 import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-import javax.persistence.*;
 
-@Entity
 @JsonApiResource(type = "roles")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonApiId
-    private Long id;
 
-    @Column(nullable = false, unique = true)
+    @JsonApiId
+    private String id;
+
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @JsonApiRelation
     private Set<User> users;
 
@@ -33,11 +30,11 @@ public class Role {
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

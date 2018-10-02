@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class RoleResourceRepository implements ResourceRepositoryV2<Role, Long> {
+public class RoleResourceRepository implements ResourceRepositoryV2<Role, String> {
 
     @Autowired private RoleRepository roleRepository;
 
     @Override
-    public Role findOne(Long id, QuerySpec querySpec) {
-        return roleRepository.getOne(id);
+    public Role findOne(String id, QuerySpec querySpec) {
+        return roleRepository.findById(id).get();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class RoleResourceRepository implements ResourceRepositoryV2<Role, Long> 
     }
 
     @Override
-    public ResourceList<Role> findAll(Iterable<Long> ids, QuerySpec querySpec) {
+    public ResourceList<Role> findAll(Iterable<String> ids, QuerySpec querySpec) {
         return querySpec.apply(roleRepository.findAllById(ids));
     }
 
@@ -38,8 +38,8 @@ public class RoleResourceRepository implements ResourceRepositoryV2<Role, Long> 
     }
 
     @Override
-    public void delete(Long id) {
-        roleRepository.delete(roleRepository.getOne(id));
+    public void delete(String id) {
+        roleRepository.delete(roleRepository.findById(id).get());
     }
 
     @Override

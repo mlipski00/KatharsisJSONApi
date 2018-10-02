@@ -10,23 +10,26 @@ import org.katharsis.persistence.dao.UserRepository;
 import org.katharsis.persistence.model.Role;
 import org.katharsis.persistence.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Setup {
+public class Setup implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
 
-    @PostConstruct
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        setupData();
+    }
+
     private void setupData() {
         Role roleUser = new Role("ROLE_USER");
-        roleUser = roleRepository.save(roleUser);
+
         Role roleAdmin = new Role("ROLE_ADMIN");
-        roleAdmin = roleRepository.save(roleAdmin);
 
         final User userJohn = new User("bjohn", "john@test.com");
         userJohn.setRoles(new HashSet<Role>(Arrays.asList(roleUser, roleAdmin)));
