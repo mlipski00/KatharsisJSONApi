@@ -1,10 +1,17 @@
 package org.katharsis;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import org.katharsis.persistence.dao.RoleRepository;
 import org.katharsis.persistence.dao.UserRepository;
 import org.katharsis.persistence.model.Role;
@@ -14,27 +21,32 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Setup {
-
+    
     @Autowired
-    private UserRepository userRepository;
+    private DataSource dataSource;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final String SQL_FILE = "mock25000users.sql";
 
     @PostConstruct
     private void setupData() {
-//        Role roleUser = new Role("ROLE_USER");
-//        roleUser = roleRepository.save(roleUser);
-//        Role roleAdmin = new Role("ROLE_ADMIN");
-//        roleAdmin = roleRepository.save(roleAdmin);
-//
-//        final User userJohn = new User("bjohn", "john@test.com");
-//        userJohn.setRoles(new HashSet<Role>(Arrays.asList(roleUser, roleAdmin)));
-//        userRepository.save(userJohn);
-//
-//        final User userTom = new User("atom", "tom@test.com");
-//        userTom.setRoles(new HashSet<Role>(Arrays.asList(roleUser)));
-//        userRepository.save(userTom);
+        try {
+            setupDataFromSQLFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setupDataFromSQLFile()  throws IOException, SQLException {
+        List<String> sqls = Resources.readLines(Resources.getResource(SQL_FILE), Charsets.UTF_8);
+        try (Connection conn = dataSource.getConnection()) {
+            for (String sql : sqls) {
+                if (!sql.trim().isEmpty()) {
+                    conn.createStatement().executeUpdate(sql);
+                }
+            }
+        }
     }
 
 }
