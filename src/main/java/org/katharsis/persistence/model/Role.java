@@ -1,8 +1,11 @@
 package org.katharsis.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -10,6 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @JsonApiResource(type = "roles")
+@AllArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +23,11 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @JsonApiRelation
     private Set<User> users;
 
-    //
     public Role() {
         super();
     }
@@ -96,11 +100,5 @@ public class Role {
         return true;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Role [id=").append(id).append(", name=").append(name).append("]");
-        return builder.toString();
-    }
 
 }

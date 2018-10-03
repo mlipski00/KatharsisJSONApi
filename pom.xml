@@ -29,6 +29,12 @@
             <!--<artifactId>h2</artifactId>-->
         <!--</dependency>-->
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!-- json api -->
 
         <dependency>

@@ -6,6 +6,8 @@ import io.katharsis.resource.annotations.JsonApiId;
 import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.resource.annotations.SerializeType;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +15,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @JsonApiResource(type = "users")
+@AllArgsConstructor
 public class User {
 
 
@@ -295,4 +298,6 @@ public class User {
         this.username = username;
         this.email = email;
     }
+
+
 }
