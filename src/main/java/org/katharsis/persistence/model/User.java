@@ -10,13 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @JsonApiResource(type = "users")
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
 
 
     @Id

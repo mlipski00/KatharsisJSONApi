@@ -23,18 +23,18 @@ public class Setup {
 
     @PostConstruct
     private void setupData() {
-        Role roleUser = new Role("ROLE_USER");
-        roleUser = roleRepository.save(roleUser);
-        Role roleAdmin = new Role("ROLE_ADMIN");
-        roleAdmin = roleRepository.save(roleAdmin);
-
-        final User userJohn = new User("bjohn", "john@test.com");
-        userJohn.setRoles(new HashSet<Role>(Arrays.asList(roleUser, roleAdmin)));
-        userRepository.save(userJohn);
-
-        final User userTom = new User("atom", "tom@test.com");
-        userTom.setRoles(new HashSet<Role>(Arrays.asList(roleUser)));
-        userRepository.save(userTom);
+//        Role roleUser = new Role("ROLE_USER");
+//        roleUser = roleRepository.save(roleUser);
+//        Role roleAdmin = new Role("ROLE_ADMIN");
+//        roleAdmin = roleRepository.save(roleAdmin);
+//
+//        final User userJohn = new User("bjohn", "john@test.com");
+//        userJohn.setRoles(new HashSet<Role>(Arrays.asList(roleUser, roleAdmin)));
+//        userRepository.save(userJohn);
+//
+//        final User userTom = new User("atom", "tom@test.com");
+//        userTom.setRoles(new HashSet<Role>(Arrays.asList(roleUser)));
+//        userRepository.save(userTom);
     }
 
 }
