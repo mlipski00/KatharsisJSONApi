@@ -19,7 +19,7 @@ public class Setup implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private UserRepository userRepository;
-
+ 
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -27,7 +27,7 @@ public class Setup implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void setupData() {
-        for (int i = 1; i < 100001; i++) {
+        for (int i = 1; i < 101; i++) {
             Role roleUser = new Role("ROLE_USER");
 
             Role roleAdmin = new Role("ROLE_ADMIN");
