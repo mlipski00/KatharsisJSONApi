@@ -7,6 +7,7 @@ import io.katharsis.resource.annotations.JsonApiRelation;
 import io.katharsis.resource.annotations.JsonApiResource;
 import io.katharsis.resource.annotations.SerializeType;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @JsonApiResource(type = "users")
 @AllArgsConstructor
+@Data
 public class User implements Serializable {
 
 
@@ -68,6 +70,7 @@ public class User implements Serializable {
     @JsonProperty("field14")
     private String field14;
 
+    private String newFieldForliquibaseTest;
 
     public Long getId() {
         return id;
